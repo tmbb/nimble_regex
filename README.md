@@ -1,6 +1,6 @@
 # NimbleRegex
 
-**TODO: Add description**
+Create NimbleParsec combinators from regular expressions.
 
 ## Installation
 
