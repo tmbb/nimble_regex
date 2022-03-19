@@ -21,10 +21,7 @@ defmodule NimbleRegex.PosixExtended.CompilerTest do
            ]
   end
 
-  regex1 = Parser.regex!("a|b|c")
-  comb1 = Compiler.parsed_to_combinator(regex1)
-
-  defparsec(:comb1, comb1)
+  defparsec(:comb1, Compiler.parsed_to_combinator("a|b|c"))
 
   test "example - comb1" do
     assert comb1("a") |> simplify_result() == {:ok, "a", ""}
@@ -34,10 +31,7 @@ defmodule NimbleRegex.PosixExtended.CompilerTest do
     assert comb1("xy") |> simplify_result() == :error
   end
 
-  regex2 = Parser.regex!("(ax)|b|c")
-  comb2 = Compiler.parsed_to_combinator(regex2)
-
-  defparsec(:comb2, comb2)
+  defparsec(:comb2, Compiler.compile_to_combinator("(ax)|b|c"))
 
   test "example - comb2" do
     assert comb2("a") |> simplify_result() == :error
@@ -46,10 +40,7 @@ defmodule NimbleRegex.PosixExtended.CompilerTest do
     assert comb2("ax") |> simplify_result() == {:ok, "ax", ""}
   end
 
-  regex3 = Parser.regex!("ax|b")
-  comb3 = Compiler.parsed_to_combinator(regex3)
-
-  defparsec(:comb3, comb3)
+  defparsec(:comb3, Compiler.compile_to_combinator("ax|b"))
 
   test "example - comb3" do
     assert comb3("a") |> simplify_result() == :error
@@ -58,10 +49,7 @@ defmodule NimbleRegex.PosixExtended.CompilerTest do
     assert comb3("b") |> simplify_result() == :error
   end
 
-  regex4 = Parser.regex!("[[:word:]]+")
-  comb4 = Compiler.parsed_to_combinator(regex4)
-
-  defparsec(:comb4, comb4)
+  defparsec(:comb4, Compiler.compile_to_combinator("[[:word:]]+"))
 
   test "example - comb4" do
     assert comb4("ábç") |> simplify_result() == {:ok, "ábç", ""}
